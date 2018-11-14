@@ -1,0 +1,9 @@
+@font-face {
+    font-family: firaCode;
+    src: url(../fonts/FiraCode-Regular.woff);
+}
+
+.code {
+    font-family: firaCode;
+    overflow-x: auto;
+}
