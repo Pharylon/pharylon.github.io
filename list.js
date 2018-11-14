@@ -9,9 +9,9 @@ export class Article{
 /**
  * @type {Article[]}
  */
-const articleList = [
+export const articleList = [
+    new Article("More Blog Thoughts", "moreBlogThoughts.html", "2018-11-14"),
     new Article("I Made A Blog", "article1.html", "2018-11-13"),
-    new Article("My Kids Are Cute", "article2.html", "2018-11-12")
+    new Article("My Kids Are Cute", "myKids.html", "2018-11-12")
 ]
 
-export default articleList;

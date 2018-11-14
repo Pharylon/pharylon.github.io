@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url(../fonts/roboto-mono-v5-latin-regular.woff2);
+}
+
+
 html{
     margin:0px;
     justify-content: center;
@@ -23,6 +29,10 @@ body{
     margin-top: 0px;
 }
 
+#menu-items li{
+    margin-bottom: 10px;
+}
+
 
 #articles{
     max-width: 700px;
@@ -36,6 +46,7 @@ body{
     background-color: rgb(0, 0, 0);
     color: white;
     text-align: center;
+    margin-top: 0px;
 }
 
 .main{
@@ -57,9 +68,6 @@ a{
     margin-bottom: 50px;
 }
 
-.emoji{
-    font-size: 0.8em;
-}
 
 .tiny{
     font-size: 0.6em;
@@ -82,5 +90,9 @@ h2{
 .current-commit{
     font-size: 0.9em;
     font-style: italic;
+}
+
+ul li{
+    margin-bottom: 5px;
 }
 

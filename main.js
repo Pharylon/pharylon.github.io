@@ -1,12 +1,14 @@
-import articleList from "./list.js";
+import {articleList} from "./list.js";
+
+
 
 async function main() {
-  if (window.location.hash){
+  if (window.location.hash && window.location.hash.length > 1){
     await loadFromHash();
   }
   else{
     await loadLast5Articles();
-  }  
+  } 
   setMenuItems();
 }
 
@@ -23,7 +25,7 @@ function setMenuItems(){
 
 function getLinkItem(name, link){
   const a = document.createElement("a");
-  a.href = link || ("#_" + getSafeTitle(name));
+  a.href = link || ("#/" + getSafeTitle(name));
   a.innerText = name;
   const li = document.createElement("li");
   li.appendChild(a);
@@ -32,21 +34,20 @@ function getLinkItem(name, link){
 
 async function loadLast5Articles(){
   const articles = [];
+  const articleDiv = document.getElementById("articles");
+  articleDiv.innerText = "";
   const promises = articleList.map(async (a, i) => {
     const html = await getArticleHtml(a.file);
-    document.getElementById("articles").innerText = "";
     articles.splice(i, 0, {title: a.name, div: getArticleDiv(a.name, html)});
     articles
       .filter((x, i) => i < 5)
       .map((x, i) => {
         if (i < 5){
-          document.getElementById("articles").append(x.div);
+          articleDiv.appendChild(x.div);
         }        
       }); 
   });
-  await Promise.all(promises);
-  //Prism is a global. It highlights code syntax.
-  Prism.highlightAll();
+  await Promise.all(promises);;
 }
 
 
@@ -104,8 +105,6 @@ async function loadArticle (title){
 async function loadFromHash(){
   const title = window.location.hash.substring(2);
   await loadArticle(title);
-  //Prism is a global. It highlights code syntax.
-  Prism.highlightAll();
 }
 
 window.addEventListener("hashchange", () => {
