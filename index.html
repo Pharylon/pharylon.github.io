@@ -4,10 +4,11 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script> -->
   <link rel="stylesheet" href="./css/site.css">
   <link rel="stylesheet" href="./css/code.css">
-  <link rel="stylesheet" href="./libs/prism.css">
+  <!-- <link rel="stylesheet" href="./libs/prism.css"> -->
   <script src="main.js" type="module"></script>
   <script src="./list.js" type="module"></script>
-  <script src="./libs/prism.js"></script>
+  <script src="./menu-button.js" type="module" ></script>
+  <!-- <script src="./libs/prism.js"></script> -->
   <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png">
@@ -27,7 +28,15 @@
 </head>
 
 <body>
-  <h1 class="main-header">Pharylon's Blog</h1>
+  <h1 class="main-header">
+    <div id="menu-button">☰</div>
+    <div class="blog-title">Pharylon's Blog</div>
+  </h1>
+  <ul id="menu-button-items">      
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ul>
   <div class="main">
     <div class="menu">
       <ul id="menu-items">

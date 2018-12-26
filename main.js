@@ -1,4 +1,5 @@
 import {articleList} from "./list.js";
+import {hideMenu} from "./menu-button.js";
 
 
 
@@ -9,11 +10,12 @@ async function main() {
   else{
     await loadLast5Articles();
   } 
-  setMenuItems();
+  setMenuItems("menu-items");
+  setMenuItems("menu-button-items");
 }
 
-function setMenuItems(){
-  const menuItems = document.getElementById("menu-items");
+function setMenuItems(menuId){
+  const menuItems = document.getElementById(menuId);
   menuItems.innerText = "";
   menuItems.appendChild(getLinkItem("Home", "#"))
   articleList.map((a) => {
@@ -47,7 +49,7 @@ async function loadLast5Articles(){
         }        
       }); 
   });
-  await Promise.all(promises);;
+  await Promise.all(promises);
 }
 
 
@@ -92,7 +94,6 @@ async function loadArticle (title){
   const articleEntry = articleList.find(x => getSafeTitle(x.name) === title);
   if (!articleEntry){
     articleDiv.innerText = "Uh-oh, couldn't find that article!";
-    set
   }
   const html = await getArticleHtml(articleEntry.file);
   const articleWrapper = getArticleDiv(articleEntry.name, html);
@@ -108,6 +109,8 @@ async function loadFromHash(){
 }
 
 window.addEventListener("hashchange", () => {
+  console.log("Hashchange")
+  hideMenu();
   if (window.location.hash && window.location.hash.length > 2){
     loadFromHash();
   }
