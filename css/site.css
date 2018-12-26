@@ -26,7 +26,6 @@ body{
 }
 
 #menu-button{
-    /* display: none; */
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
@@ -34,8 +33,9 @@ body{
     -webkit-touch-callout: none;
     -o-user-select: none;
     -moz-user-select: none;
-    display: flex;
+    display: none;
     flex-direction: column;
+    padding: 5px;
 }
 
 #menu-button-items{
@@ -64,15 +64,18 @@ body{
 
 
 
-@media (max-width: 60em) and (orientation: portrait){
+@media (orientation: portrait) {
     body{
         font-size: 22px;
     }
-    .menu-button{
+    #menu-button{
         display: flex;
-        justify-self: left;
+    }
+    .menu{
+        display: none;
     }
 }
+
 
 
 
@@ -81,12 +84,6 @@ body{
     white-space: nowrap;
 }
 
-
-@media (max-width: 60em){
-    .menu{
-        display: none;
-    }
-}
 
 .menu{
     padding-top: 20px;
