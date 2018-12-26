@@ -3,6 +3,7 @@
     src: url(../fonts/roboto-mono-v5-latin-regular.woff2);
 }
 
+
 a:visited{
     color: black;
 }
@@ -22,7 +23,7 @@ html{
 body{
     margin: 0px;
     padding: 0px;
-    font-size: 18px;
+    font-size: 120%;
 }
 
 #menu-button{
@@ -35,6 +36,7 @@ body{
     -moz-user-select: none;
     display: none;
     flex-direction: column;
+    justify-content: center;
     padding: 5px;
 }
 
@@ -65,15 +67,36 @@ body{
 
 
 @media (orientation: portrait) {
-    body{
-        font-size: 22px;
-    }
     #menu-button{
         display: flex;
     }
     .menu{
         display: none;
     }
+    #articles{
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}
+
+@media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+    body{
+        font-size: 1.5rem;
+    }
+}
+
+@media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
+    body{
+        font-size: 2rem;
+    }
+}
+
+
+
+@media (orientation: landscape) {
+    #articles{
+        max-width: 700px;
+    }   
 }
 
 
@@ -91,6 +114,7 @@ body{
     top: 30px;
     align-self: flex-start;
     max-width: 200px;
+    padding-right: 50px;
 }
 
 #menu-items{
@@ -102,10 +126,6 @@ body{
 }
 
 
-#articles{
-    max-width: 700px;
-    margin-left: 50px;
-}
 
 .main-header{
     margin-top: 0px;
