@@ -1,0 +1,15 @@
+body{
+  margin-top: 20px;
+  text-align: center;
+}
+
+#date{
+  font-size: 4em;
+}
+
+button{
+  font-size: 2em;
+  border: 1px solid grey;
+  background-color: rgb(163, 163, 238);
+  color: rgb(49, 48, 48);
+}
