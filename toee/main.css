@@ -19,6 +19,12 @@ body{
     }
 }
 
+@media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+    body{
+        font-size: 1.1rem;
+    }
+}
+
 @media (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
     body{
         font-size: 1.5rem;
@@ -31,6 +37,11 @@ body{
     }
 }
 
+@media (orientation: landscape) {
+    #hide-menu{
+        display: none;
+    }
+}
 
 
 .main-menu{
