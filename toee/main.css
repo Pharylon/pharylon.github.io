@@ -115,14 +115,20 @@ body{
      cursor: pointer;
  }
 
+
+ 
  #hamburger {
-    position: absolute;
+    position: fixed;
     font-size: 2em;
     top: 10px;
     left: 10px;
     cursor: pointer;
     z-index: 100;
     display: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    border: 1px solid rgb(212, 208, 208);
+    padding: 2px 5px;
 }
 
 #hamburger div {
