@@ -8,7 +8,7 @@ body{
 
 #menu-button{
     display: flex;
-    background-image: url("/images/hamburger.svg");
+    background-image: url("./images/hamburger.svg");
     color: white;
     width: 40px;
     margin-left: 5px;
@@ -23,7 +23,6 @@ body{
     top: 0;
     display: flex;
     flex-direction: row;
-    border: 1px solid red;
 }
 
 @media (orientation: portrait) {
@@ -67,7 +66,6 @@ body{
 
 
 #top-menu-title {
-    border: 1px solid gray;
     margin: auto;
 }
 
