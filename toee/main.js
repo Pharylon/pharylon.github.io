@@ -94,7 +94,11 @@ function toggleMenu() {
   menu.style.display = "block";
   menu.style.top = document.getElementById("top-menu").offsetHeight;
   menu.style.position = "absolute";
-  document.body.append(menu);
+  const wrapper = document.createElement("div");
+  wrapper.style.position = "relative";
+  wrapper.style.height = "auto";
+  wrapper.appendChild(menu);
+  document.getElementById("top-wrap").append(menu);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
