@@ -6,16 +6,37 @@ body{
     display: flex;
 }
 
+#menu-button{
+    display: flex;
+    background-image: url("/images/hamburger.svg");
+    color: white;
+    width: 40px;
+    margin-left: 5px;
+}
+
+
+#top-menu {
+    width: 100%;
+    background-color: rgb(0, 63, 146);
+    color: white;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid red;
+}
+
 @media (orientation: portrait) {
-    #menu-button{
-        display: flex;
-    }
     .menu{
         display: none;
     }
     #articles{
         margin-left: 1em;
         margin-right: 1em;
+    }
+    .main-menu{
+        display: none;
+        padding: 100px;
     }
 }
 
@@ -38,11 +59,23 @@ body{
 }
 
 @media (orientation: landscape) {
-    #hide-menu{
+    #top-menu{
         display: none;
     }
 }
 
+
+
+#top-menu-title {
+    border: 1px solid gray;
+    margin: auto;
+}
+
+#top-menu-title h1 { 
+    padding: 0px;
+    margin: 5px 0px;
+    white-space: nowrap;
+}
 
 .main-menu{
     font-family: Arial, Helvetica, sans-serif;

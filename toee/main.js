@@ -57,7 +57,7 @@ function setJournalMenu() {
       const fakeAnchor = document.createElement("div");
       fakeAnchor.innerText = ("Entry " + section.id.replace("entry", ""));
       fakeAnchor.classList.add("entry-menu-item");
-      fakeAnchor.onclick = () => section.scrollIntoView({behavior: "smooth"})
+      fakeAnchor.onclick = () => section.scrollIntoView()
       menu.appendChild(fakeAnchor);
       // if (i < sections.length - 1) {
       //   menu.appendChild(getDelimiter());
@@ -83,12 +83,38 @@ function handwriting(myBool) {
   }
 }
 
-function hideMenu(){
-  document.getElementById("main-menu").style.display = "none";
-  document.getElementById("hamburger").style.display = "block";
+function toggleMenu() {
+  const existing = document.getElementById("popup-menu");
+  if (existing) {
+    existing.remove();
+    return;
+  }
+  const menu = document.getElementById("main-menu").cloneNode(true);
+  menu.id = "popup-menu";
+  menu.style.display = "block";
+  menu.style.top = document.getElementById("top-menu").offsetHeight;
+  menu.style.position = "absolute";
+  document.body.append(menu);
 }
 
-function showMenu(){
-  document.getElementById("main-menu").style.display = "block";
-  document.getElementById("hamburger").style.display = "none";
-}
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.addEventListener("click", (e) => {
+    const menuButton = document.getElementById("top-menu");
+    if (menuButton.contains(e.target)) {
+      return;
+    }
+    const popupMenu = document.getElementById("popup-menu");
+    if (popupMenu) {
+      if (popupMenu.contains(e.target)) {
+        if(event.target.tagName.toLowerCase() === 'a'){
+          popupMenu.remove();
+        }
+      }
+      else {
+        console.log("Outside");
+
+        popupMenu.remove();
+      }
+    }
+  })
+});
