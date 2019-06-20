@@ -8,7 +8,8 @@
     "no-console": false,
     "ordered-imports": false,
     "no-consecutive-blank-lines": false,
-    "one-line": false
+    "one-line": false,
+    "object-literal-sort-keys": false
   },
   "rulesDirectory": []
 }

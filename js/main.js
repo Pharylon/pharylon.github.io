@@ -1,5 +1,6 @@
 import { articleList } from "./list.js";
 import { hideMenu } from "./menu-button.js";
+import { subscribeUser } from "./subscriptions.js";
 async function main() {
     if (window.location.hash && window.location.hash.length > 1) {
         await loadFromHash();
@@ -9,6 +10,7 @@ async function main() {
     }
     setMenuItems("menu-items");
     setMenuItems("menu-button-items");
+    subscribeUser();
 }
 function setMenuItems(menuId) {
     const menuItems = document.getElementById(menuId);
@@ -102,4 +104,4 @@ window.addEventListener("hashchange", () => {
         loadLast5Articles();
     }
 });
-main();
+document.addEventListener("DOMContentLoaded", main);
