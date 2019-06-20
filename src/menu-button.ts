@@ -1,17 +1,26 @@
 const menuButton = document.getElementById("menu-button");
-menuButton.onclick = toggleMenu;
 const menuItems = document.getElementById("menu-button-items");
 
+document.addEventListener("DOMContentLoaded", () => {
+  if (menuButton){
+    menuButton.onclick = toggleMenu;
+  }
+});
+
 function toggleMenu(){
-  
+  if (!menuItems){
+    return;
+  }
   if (window.getComputedStyle(menuItems).display === "none"){
     menuItems.style.display = "block";
   }
   else{
     hideMenu();
-  }  
+  }
 }
 
 export function hideMenu(){
-  menuItems.style.display = "none";
+  if (menuItems){
+    menuItems.style.display = "none";
+  }
 }

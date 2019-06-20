@@ -1,0 +1,3 @@
+To test...
+
+Run tsc -w in one window, and live-server in another. Enjoy!
