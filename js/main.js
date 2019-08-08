@@ -30,24 +30,22 @@ function getLinkItem(name, link) {
     return li;
 }
 async function loadLast5Articles() {
-    const articles = [];
+    //const articles = [];
     const articleDiv = document.getElementById("articles");
     if (!articleDiv) {
         return;
     }
     articleDiv.innerText = "";
-    const promises = articleList.map(async (a, i) => {
-        const html = await getArticleHtml(a.file);
-        articles.splice(i, 0, { title: a.name, div: getArticleDiv(a.name, html) });
-        articles
-            .filter((x, index) => index < 5)
-            .map((x, index) => {
-            if (index < 5) {
-                articleDiv.appendChild(x.div);
-            }
+    const promises = articleList
+        .filter((x, i) => i < 5 )
+        .map(async (a, i) => {
+            const html = await getArticleHtml(a.file);
+            return {index: i, title: a.name, div: getArticleDiv(a.name, html) };
+            //articles.splice(i, 0, { title: a.name, div: getArticleDiv(a.name, html) });              
         });
-    });
-    await Promise.all(promises);
+    const articles = await Promise.all(promises);
+    articles.sort((a, b) => a.index - b.index);
+    articles.forEach((x) => articleDiv.appendChild(x.div));  
 }
 function getArticleDiv(title, html) {
     const articleWrapper = document.createElement("div");
@@ -59,6 +57,7 @@ function getArticleDiv(title, html) {
 }
 function getSafeTitle(title) {
     title = title.replace(/\s/g, "_");
+    title = title.replace(/&/g, "n");
     return encodeURIComponent(title);
 }
 async function getArticleHtml(fileDir) {
