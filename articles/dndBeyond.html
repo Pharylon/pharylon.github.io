@@ -1,0 +1,44 @@
+<h2>D&D Beyond</h2>
+<div class="date">Aug 8, 2019</div>
+
+<p>
+    D&D Beyond is the "official toolset" of Wizards of the Coast. They're the only place you can go online to 
+    officially build a character for Dungeons and Dragons. They also have a phone app, where you can download 
+    rulebooks and look stuff up (although their search functionality suuuuuuucks). 
+</p>
+
+<p>
+    Anyway, a little over 90 days ago (😉) I was messing around with the app, and watching what kind of requests 
+    it was making to their server, and I noticed that when you add a book through the app, it downloads a really 
+    big file full of art and whatnot. When I downloaded it on my PC, I realized the file contained a SQLite db 
+    file. I tried to open it, but it was encrypted. However, I also noticed that one of the other API calls the 
+    app made was to a "get-book-codes" endpoint, and the reply was a JSON object that looked something like this:
+
+    <p>
+      <div class="code">
+        <code>
+          <pre>
+{
+    "status": "success",
+    "data": [
+        {
+            "sourceID": 1,
+            "data": "cHVycGxlX211c3RhbmdfY2hhaXJfd2hhdGV2ZXI="
+    ]
+}
+          </pre>
+          </code>
+        </div>
+    </p>
+
+    <p>
+      I looked at that and thought, huh, is that just a Base64 encoded string? Turns out, that's exaclty what it was, and when
+      decoded, it was <em>clearly</em> a password. It looked like a few English words picked at random (like, say, sky_chair_varmint_whatever_). 
+    </p>
+    
+    <p>
+        Is that just the SQLLite database password? Sure is! And they used the SQL Cipher 3 default settings! So now I have all the D&D 
+        book database files from D&D Beyond. Not that I'll ever really need them or want them for anything! 😆
+    </p>
+  
+</p>

@@ -180,3 +180,7 @@ ul li{
     margin-bottom: 5px;
 }
 
+.code{
+    max-width: 80vw;
+
+}
