@@ -6,4 +6,9 @@
 .code {
     font-family: firaCode;
     overflow-x: auto;
+    background-color: rgb(233, 233, 233);
+}
+
+.code-snippet{
+    color: rgb(252, 39, 39);
 }
