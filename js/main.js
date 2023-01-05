@@ -16,8 +16,11 @@ function setMenuItems(menuId) {
         menuItems.innerText = "";
         menuItems.appendChild(getLinkItem("Home", "#"));
         articleList.map((a) => {
-            const li = getLinkItem(a.name);
-            menuItems.appendChild(li);
+            if (!a.hide){
+                const li = getLinkItem(a.name);
+                menuItems.appendChild(li);
+            }
+            
         });
     }
 }

@@ -1,14 +1,16 @@
 export class Article {
-    constructor(name, file, date) {
+    constructor(name, file, date, hide) {
         this.name = name;
         this.file = file;
         this.date = date;
+        this.hide = hide;
     }
 }
 /**
  * @type {Article[]}
  */
 export const articleList = [
+    new Article("Terraforming Mars Mutlipleary Tracker Contact Info", "tfContact.html", "2023-01-05", true),
     new Article("D&D Beyond", "dndBeyond.html", "2019-10-20"),
     new Article("Spellbook", "spellbook.html", "2019-10-18"),
     new Article("My Dream", "dream.html", "2019-10-06"),
