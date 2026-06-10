@@ -42,17 +42,17 @@ parts_to_expand = {
   "financialsPart2": "Gaston County Schools is not the most costly school per-student. Public records requests have revealed Gaston County Schools does not even track individual budgets per school. Voting to close a school without knowing its baseline operating cost is fiscally irresponsible.",
   "financialsPart3": "Cherryville is already underfunded compared to more affluent cities in the county.",
   
-  "capacityPart1": "We must also look at school capacity, as W.B. Beam Intermediate is currently operating at an efficient 87% utilization. Voting to close Beam will immediately push Cherryville Elementary to a crushing 97% capacity at best.",
+  "capacityPart1": "We must also look at school capacity, as W.B. Beam Intermediate is currently operating at an efficient 87% utilization (or phrase it as 'almost 90%' or something similar). Voting to close Beam will immediately push Cherryville Elementary will overcrowd our schools even more.",
   "capacityPart2": "Chavis is already facing huge classroom overcrowding issues and doesn't have the room or resources to take on Beam's student population.",
-  "capacityPart3": "Overcrowded classrooms degrade the learning environment and stretch our teachers to their limits. The decision to transition 5th graders to John Chavis Middle School presents severe developmental risks for our kids. It strips them of a dedicated upper-elementary environment and cancels crucial identity-building programs like Battle of the Books, Math Masters, and Robotics that help them thrive.",
+  "capacityPart3": "Overcrowded classrooms degrade the learning environment and stretch our teachers past their limits. The decision to transition 5th graders to John Chavis Middle School presents severe developmental risks for our kids. It strips them of a dedicated upper-elementary environment and cancels crucial identity-building programs like Battle of the Books, Math Masters, and Robotics that help them thrive.",
   
   "growthPart1": "This closure is particularly short-sighted because Cherryville is entering a period of significant residential growth. With hundreds of new housing units already approved, school enrollment will rise steadily over the next decade.",
   "growthPart2": "If we push Cherryville schools to near-1005 capacity now, how will they deal with growth? Reopening or expanding schools is much harder than shutting them down",
   "growthPart3": "Closing Beam now is a short-sighted mistake that will leave our district unprepared and force us to build new facilities later.",
   
   "educationalPart1": "Moving fifth graders to John Chavis Middle School is a major developmental mistake. These are elementary school students mingling with teenagers!",
-  "educationalPart2": "Fifth graders thrive in elementary environments, and moving them will strip them of essential upper-elementary identity programs.",
-  "educationalPart3": "These identity programs are critical for their academic engagement and self-esteem."
+  "educationalPart2": "Fifth graders thrive in elementary environments, and moving them to a middle school will strip them of essential upper-elementary identity programs.",
+  "educationalPart3": "Our school would be the only one in the county without encore classes. It seems these were stripped from us to free up rooms for consolidation."
 }
 
 def generate_variations(key, base_sentence, max_retries=3):
