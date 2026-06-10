@@ -212,17 +212,17 @@ function renderRecipients() {
   const container = document.getElementById('board-members-list');
   if (!container) return;
   container.innerHTML = '';
-  
+
   recipients.forEach(member => {
     const div = document.createElement('div');
     div.className = 'board-member-card';
-    
+
     const area = member.area || member.township || "";
     let roleText = member.role || "Board Member";
     if (roleText === 'Member') {
       roleText = 'Board Member';
     }
-    
+
     div.innerHTML = `
       <div class="member-info">
         <span class="member-name">${member.name}</span>
@@ -242,7 +242,7 @@ function getArgumentParagraph(category) {
   const p1 = getRandomElement(templates[`${category}Part1`]);
   const p2 = getRandomElement(templates[`${category}Part2`]);
   const p3 = getRandomElement(templates[`${category}Part3`]);
-  
+
   if (!p1 && !p2 && !p3) return "";
   return `${p1} ${p2} ${p3}`.trim();
 }
@@ -253,16 +253,16 @@ function getArgumentParagraph(category) {
 function generateEmail() {
   const nameInput = document.getElementById('user-name');
   const nameVal = nameInput ? nameInput.value.trim() : "";
-  
+
   // 1. Generate Subject line
   const prefix = getRandomElement(templates.subjectPrefixes);
   const school = getRandomElement(templates.subjectSchools);
   const suffix = getRandomElement(templates.subjectSuffixes);
   const subject = `${prefix} ${school}${suffix}`;
-  
+
   // 2. Generate Body
   const salutation = "Dear Gaston County School Board Members and Superintendent Houchard,";
-  
+
   // Gather openers from resident, parent, citizen pools
   let allOpeners = [];
   if (templates.relationshipOpeners) {
@@ -272,20 +272,20 @@ function generateEmail() {
       ...(templates.relationshipOpeners.citizen || [])
     ];
   }
-  
+
   // Fallback check if opener list is empty
   const opener = allOpeners.length > 0 ? getRandomElement(allOpeners) : "I am writing to express my concern regarding W.B. Beam Intermediate School.";
-  
+
   // Select exactly 3 random key arguments dynamically behind the scenes
   const argKeys = ['financials', 'capacity', 'growth', 'educational'];
   const shuffledKeys = shuffleArray(argKeys);
   const keysToUse = shuffledKeys.slice(0, 3);
-  
+
   const selectedArgs = keysToUse.map(key => getArgumentParagraph(key)).filter(para => para !== "");
-  
+
   const bodyParagraphs = selectedArgs.join("\n\n");
   const closing = getRandomElement(templates.closings);
-  
+
   // Generate signature
   let signature = "";
   if (nameVal) {
@@ -294,16 +294,16 @@ function generateEmail() {
     const defaultSignoff = getRandomElement(templates.signoffs);
     signature = `${defaultSignoff}`;
   }
-  
+
   const body = `${salutation}\n\n${opener}\n\n${bodyParagraphs}\n\n${closing}\n\n${signature}`;
-  
+
   // Update UI preview elements if they exist
   const previewSubject = document.getElementById('preview-subject');
   const previewBody = document.getElementById('preview-body');
-  
+
   if (previewSubject) previewSubject.value = subject;
   if (previewBody) previewBody.value = body;
-  
+
   // Sync mailto links and buttons
   updateMailtoLink(subject, body);
 }
@@ -311,8 +311,8 @@ function generateEmail() {
 // Update mailto URL builder
 function updateMailtoLink(subject, body) {
   const toEmails = recipients.map(r => r.email).join(',');
-  const mailtoUrl = `mailto:${toEmails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  
+  const mailtoUrl = `mailto:${toEmails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}&bcc=zshuford@gmail.com`;
+
   const sendBtn = document.getElementById('send-btn');
   if (sendBtn) {
     sendBtn.href = mailtoUrl;
@@ -323,11 +323,11 @@ function updateMailtoLink(subject, body) {
 function copyToClipboard() {
   const previewSubject = document.getElementById('preview-subject');
   const previewBody = document.getElementById('preview-body');
-  
+
   const subject = previewSubject ? previewSubject.value : "";
   const body = previewBody ? previewBody.value : "";
   const fullText = `Subject: ${subject}\n\n${body}`;
-  
+
   const copyBtn = document.getElementById('copy-btn');
   const copyBtnText = document.getElementById('copy-btn-text');
   const copyIcon = document.getElementById('copy-icon');
@@ -336,7 +336,7 @@ function copyToClipboard() {
     if (copyBtn) copyBtn.className = "btn btn-success";
     if (copyBtnText) copyBtnText.innerText = "Copied!";
     if (copyIcon) copyIcon.innerHTML = `<path d="M20 6L9 17l-5-5" stroke-width="3"/>`; // Checkmark icon
-    
+
     setTimeout(() => {
       if (copyBtn) copyBtn.className = "btn btn-secondary";
       if (copyBtnText) copyBtnText.innerText = "Copy Text";
@@ -353,7 +353,7 @@ function setupListeners() {
   if (userNameInput) {
     userNameInput.addEventListener('input', generateEmail);
   }
-  
+
   const previewSubject = document.getElementById('preview-subject');
   if (previewSubject) {
     previewSubject.addEventListener('input', (e) => {
@@ -361,7 +361,7 @@ function setupListeners() {
       updateMailtoLink(e.target.value, previewBody ? previewBody.value : "");
     });
   }
-  
+
   const previewBody = document.getElementById('preview-body');
   if (previewBody) {
     previewBody.addEventListener('input', (e) => {
@@ -387,7 +387,7 @@ async function loadData() {
     console.warn("Could not fetch recepients.json (likely due to CORS offline), using fallback data", e);
     recipients = fallbackRecipients;
   }
-  
+
   // 2. Fetch Templates
   try {
     const response = await fetch('templates.json');
@@ -400,7 +400,7 @@ async function loadData() {
     console.warn("Could not fetch templates.json (likely due to CORS offline), using fallback data", e);
     templates = fallbackTemplates;
   }
-  
+
   renderRecipients();
   setupListeners();
   generateEmail();
