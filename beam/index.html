@@ -17,112 +17,25 @@
     <h1>Save W.B. Beam Intermediate</h1>
     <p class="subtitle">
       The Gaston County School Board is voting soon on a proposal to close W.B. Beam Intermediate School. 
-      Help us fight this short-sighted decision. Customize and send an advocacy email to all board members in seconds.
+      Help us fight this short-sighted decision. Send an advocacy email to all board members in seconds.
     </p>
   </header>
 
   <main>
-    <!-- Left Column: School Board Directory -->
-    <section class="card" aria-label="School Board Members Directory">
-      <h2 class="card-title">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Board of Education
-      </h2>
-      <p class="card-description">
-        Your email will be sent directly to all 9 board members and the Superintendent listed below:
-      </p>
-
-      <div class="board-list" id="board-members-list">
-        <!-- Rendered dynamically via JS -->
-        <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
-          Loading school board directory...
-        </div>
-      </div>
-
-      <div class="stats-bar" style="margin-top: 2rem;">
-        <div class="stat-item">
-          <span class="stat-number">10</span>
-          <span class="stat-label">Recipients</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">6k+</span>
-          <span class="stat-label">Letter Combos</span>
-        </div>
-        <div class="stat-item" style="border: none;">
-          <span class="stat-number">1</span>
-          <span class="stat-label">Click to Send</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Right Column: Email Customizer & Live Preview -->
+    <!-- Section 1 (Top): Email Customizer & Live Preview (Advocacy Generator) -->
     <section class="card" aria-label="Email Message Customizer">
       <h2 class="card-title" style="color: var(--text-primary);">
         <svg class="icon" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"/></svg>
-        Customize Your Letter
+        Advocacy Email Generator
       </h2>
       <p class="card-description">
-        Each click of the generator automatically builds a unique message to prevent spam filtering. Tweak the options below:
+        This tool automatically builds a unique message to board members using key facts from the community feasibility study. Enter your name and click the button to send.
       </p>
 
-      <form id="email-form" onsubmit="event.preventDefault();">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-          <div class="form-group" style="margin-bottom: 0;">
-            <label for="user-name">Your Name</label>
-            <input type="text" id="user-name" placeholder="Optional (e.g. Jane Doe)" autocomplete="name">
-          </div>
-          <div class="form-group" style="margin-bottom: 0;">
-            <label for="user-township">Your Town / City</label>
-            <input type="text" id="user-township" placeholder="Optional (e.g. Cherryville)" autocomplete="address-level2">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="user-relationship">I am writing as a...</label>
-          <select id="user-relationship">
-            <option value="resident">Cherryville Resident</option>
-            <option value="parent">Parent of Gaston County Student</option>
-            <option value="teacher">Educator / School Staff Member</option>
-            <option value="alumni">Beam School Alumnus</option>
-            <option value="citizen">Concerned Citizen</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Select key arguments to focus on (we will select up to 2 randomly to keep it concise):</label>
-          <div class="checkbox-grid">
-            <label class="checkbox-card selected" id="lbl-financials">
-              <input type="checkbox" id="arg-financials" checked>
-              <div class="checkbox-label">
-                <span class="checkbox-title">Flawed Financials</span>
-                <span class="checkbox-desc">Actual savings estimated at $90k-$160k, not $288k. Lack of per-school budgets.</span>
-              </div>
-            </label>
-
-            <label class="checkbox-card selected" id="lbl-capacity">
-              <input type="checkbox" id="arg-capacity" checked>
-              <div class="checkbox-label">
-                <span class="checkbox-title">Capacity & Overcrowding</span>
-                <span class="checkbox-desc">Beam operates at 87%. Closure pushes Cherryville Elementary to 97%+.</span>
-              </div>
-            </label>
-
-            <label class="checkbox-card selected" id="lbl-growth">
-              <input type="checkbox" id="arg-growth" checked>
-              <div class="checkbox-label">
-                <span class="checkbox-title">Future Growth</span>
-                <span class="checkbox-desc">Cherryville is rapidly growing. Hundreds of new residential homes approved.</span>
-              </div>
-            </label>
-
-            <label class="checkbox-card selected" id="lbl-educational">
-              <input type="checkbox" id="arg-educational" checked>
-              <div class="checkbox-label">
-                <span class="checkbox-title">Educational Impact</span>
-                <span class="checkbox-desc">Moving 5th graders to Middle School is developmentally risky. Loss of robotics/math.</span>
-              </div>
-            </label>
-          </div>
+      <form id="email-form" onsubmit="event.preventDefault();" style="margin-bottom: 1.5rem;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="user-name">Your Name (optional, will be added to the email signature)</label>
+          <input type="text" id="user-name" placeholder="e.g. Jane Doe" autocomplete="name" style="padding: 1rem; font-size: 1.05rem;">
         </div>
       </form>
 
@@ -157,6 +70,24 @@
         </button>
       </div>
     </section>
+
+    <!-- Section 2 (Bottom): School Board Directory -->
+    <section class="card" aria-label="School Board Members Directory">
+      <h2 class="card-title">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Board of Education Recipients
+      </h2>
+      <p class="card-description">
+        Your email will be sent directly to all 10 recipients listed below. You can also click their email to contact them individually:
+      </p>
+
+      <div class="board-list" id="board-members-list">
+        <!-- Rendered dynamically via JS -->
+        <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+          Loading school board directory...
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -164,327 +95,6 @@
     <p style="margin-top: 0.5rem;"><a href="../beam.html">Back to Main Info Page</a></p>
   </footer>
 
-  <script>
-    // ----------------------------------------------------
-    // Recipient & Template Data
-    // ----------------------------------------------------
-    let recipients = [];
-    const fallbackRecipients = [
-      { "name": "Josh Crisp", "email": "joshcrisp@gaston.k12.nc.us", "role": "Chairman", "area": "Dallas Township" },
-      { "name": "Dot Cherry", "email": "dotcherry@gaston.k12.nc.us", "role": "Vice Chairman", "area": "At-Large Member" },
-      { "name": "Lee Dedmon", "email": "leededmon@gaston.k12.nc.us", "role": "Board Member", "area": "Gastonia Township" },
-      { "name": "Tod Kinlaw", "email": "todkinlaw@gaston.k12.nc.us", "role": "Board Member", "area": "South Point Township" },
-      { "name": "Robbie Lovelace", "email": "robbielovelace@gaston.k12.nc.us", "role": "Board Member", "area": "Cherryville Township" },
-      { "name": "Brent Moore", "email": "brentmoore@gaston.k12.nc.us", "role": "Board Member", "area": "Crowders Mountain Township" },
-      { "name": "Jeff Ramsey", "email": "jefframsey@gaston.k12.nc.us", "role": "Board Member", "area": "At-Large Member" },
-      { "name": "Janna Smith", "email": "jannasmith@gaston.k12.nc.us", "role": "Board Member", "area": "Gastonia Township" },
-      { "name": "A.M. Stephens III", "email": "amstephens@gaston.k12.nc.us", "role": "Board Member", "area": "Riverbend Township" },
-      { "name": "Morgen A. Houchard", "email": "superintendent@gaston.k12.nc.us", "role": "Superintendent", "area": "Gaston County Schools" }
-    ];
-
-    const subjectPrefixes = [
-      "Urgent: Please vote to save",
-      "Do not close",
-      "Save our school - Keep",
-      "A concerned resident's appeal:",
-      "Please reconsider the closure of",
-      "Protect Cherryville's future - Save",
-      "Voting NO on closing",
-      "An urgent appeal regarding",
-      "Please vote against closing",
-      "Reject the proposal to close"
-    ];
-
-    const subjectSchools = [
-      "W.B. Beam Intermediate School",
-      "Beam Intermediate School",
-      "W.B. Beam Intermediate",
-      "our local Beam Intermediate",
-      "W.B. Beam",
-      "Beam School in Cherryville"
-    ];
-
-    const subjectSuffixes = [
-      "!",
-      " - Think of our kids",
-      " - A short-sighted decision",
-      " - Keep Beam open!",
-      " - Community appeal",
-      " - Review the feasibility study",
-      " - Focus on the kids"
-    ];
-
-    const relationshipOpeners = {
-      resident: [
-        "As a resident of Cherryville and a deeply concerned citizen, I am writing to urge you to vote against the proposed closure of W.B. Beam Intermediate School.",
-        "I am writing to you today as a Cherryville resident to express my strong opposition to the closing of W.B. Beam Intermediate.",
-        "As a resident who cares deeply about public education in Gaston County, I urge you to vote 'NO' on the proposal to close Beam Intermediate."
-      ],
-      parent: [
-        "As a parent of children in the Gaston County school system, I am writing to urge you to vote against the proposed closure of W.B. Beam Intermediate School.",
-        "I am writing to you today as a parent who is deeply concerned about my children's educational future to oppose the closing of W.B. Beam Intermediate.",
-        "As a local parent, I urge you to vote against the closure of Beam Intermediate. Our kids deserve stability, quality education, and safe learning environments."
-      ],
-      teacher: [
-        "As an educator in Gaston County, I am writing to express my grave concerns and opposition regarding the proposed closure of W.B. Beam Intermediate School.",
-        "I am writing to you today as a teacher dedicated to the children of our community. I strongly urge the Board to vote against closing W.B. Beam Intermediate.",
-        "As an educator who sees the daily impact of school board policy on students, I urge you to reject the plan to close Beam Intermediate."
-      ],
-      alumni: [
-        "As a proud alumnus of W.B. Beam Intermediate School, I am writing to urge you to vote against the proposed closure of this vital community institution.",
-        "I am writing to you today as a former Beam Intermediate student. I strongly oppose the proposal to close the school that did so much for my education.",
-        "Having attended Beam Intermediate myself, I know firsthand how important it is to the Cherryville community. I urge you to vote 'NO' on its closure."
-      ],
-      citizen: [
-        "As a concerned citizen of Gaston County, I am writing to urge you to vote against the proposed closure of W.B. Beam Intermediate School.",
-        "I am writing to you today to express my opposition to the closing of W.B. Beam Intermediate. This decision will hurt the entire Cherryville community.",
-        "Please protect the strength of our public school system by voting against the closure of W.B. Beam Intermediate School."
-      ]
-    };
-
-    const argumentTemplates = {
-      financials: [
-        "The district's claims of $288,342 in savings are highly suspect. Our community feasibility study reveals that once you account for Title 1 funds, shared staff, and SROs transferring with students, the true net savings are a meager $90,000 to $160,000. Furthermore, public records reveal the district doesn't even maintain per-school operating budgets. Voting on a closure without knowing the school's actual baseline spending is financially irresponsible.",
-        "It is deeply concerning that Gaston County Schools cannot provide a per-school operating budget for Beam, as revealed by recent records requests. The projected savings of $288k are mathematically overstated, and when accounting for Title 1 resources and shared staff, the actual savings drop to between $89,904 and $161,971. The board cannot make a sound fiscal decision without baseline budget numbers.",
-        "The financial justification for closing Beam is severely flawed. The real net savings will likely be less than $160,000, as Title 1 funding and student-tied resources will simply move with them. More alarmingly, Gaston County Schools does not track per-school budgets. It is impossible to make an informed, responsible vote to close a school when the district lacks baseline spending data for individual campuses."
-      ],
-      capacity: [
-        "Beam Intermediate is not underutilized. It is currently operating at 87% capacity. If you vote to close it, Cherryville Elementary will immediately be pushed to at least 97% capacity. Packing our students into overcrowded classrooms is a disservice to their education and safety, and will degrade the learning environment for both children and staff.",
-        "Closing Beam will create immediate capacity crises. The school currently runs at 87% utilization, which is highly efficient. Shutting it down will overload Cherryville Elementary, spiking its utilization rate to 97%. Overcrowded classrooms will hurt student outcomes and put a severe strain on our educators.",
-        "We must not force our elementary students into an overcrowded environment. Pushing Cherryville Elementary to 97% capacity by closing Beam—which operates comfortably and efficiently at 87%—is a major step backward. Our children deserve breathing room and focused attention, not packed classrooms."
-      ],
-      growth: [
-        "Closing Beam Intermediate is incredibly short-sighted given the rapid growth Cherryville is experiencing. With hundreds of new residential units already approved and in development, our enrollment is projected to climb significantly over the next three to ten years. Shutting down a functioning school now will only force the county to spend more money building new facilities in the near future.",
-        "Cherryville is growing, with multiple residential developments adding hundreds of new homes. Board projections fail to account for this 3-to-10-year enrollment growth. Closing Beam now is a short-sighted mistake that will leave our district unprepared for the influx of new families, leading to a capacity crisis very soon.",
-        "Our community is on the rise. With hundreds of new homes in the pipeline, Cherryville's school-age population will expand. Closing a school like Beam Intermediate is counterproductive. We should be planning for this growth rather than stripping away our educational infrastructure for negligible, short-term savings."
-      ],
-      educational: [
-        "Reassigning fifth graders to John Chavis Middle School is developmentally inappropriate and places young children in an environment with much older students. Additionally, this move will strip these students of vital upper-elementary identity programs like Robotics, Math Masters, and Battle of the Books, which are critical for their academic growth.",
-        "Moving fifth-grade students to a middle school setting at John Chavis presents serious developmental challenges. Fifth graders thrive in upper-elementary environments. By closing Beam, we will also lose essential, specialized programs such as Battle of the Books, Robotics, and Math Masters that keep our students engaged and competitive.",
-        "Fifth graders are not ready for middle school. Moving them to Chavis Middle School eliminates the protective, nurturing environment of Beam. It also puts at risk the excellent programs that define Beam, including Math Masters, Robotics, and Battle of the Books. Please do not strip these opportunities away from our children."
-      ]
-    };
-
-    const closings = [
-      "Please listen to the parents, teachers, and taxpayers of Cherryville. I urge you to vote 'NO' on the proposal to close W.B. Beam Intermediate.",
-      "I ask you to stand with our community and protect our schools. Please vote to keep Beam Intermediate open.",
-      "Thank you for your time and for your dedication to Gaston County's students. I trust you will make the right decision and vote against this closure.",
-      "Please review the independent community feasibility study details and vote to reject the closure of W.B. Beam Intermediate. Our community is counting on you.",
-      "Our children's future depends on your decision. Please reject this short-sighted proposal and vote to preserve Beam Intermediate.",
-      "For the sake of our students, teachers, and Cherryville's future, please vote against the closure of Beam Intermediate School at the upcoming meeting."
-    ];
-
-    const signoffs = [
-      "Sincerely,",
-      "Best regards,",
-      "Respectfully,",
-      "A concerned Gaston County resident,"
-    ];
-
-    // Helper: Select random element from array
-    function getRandomElement(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    // Helper: Shuffle array
-    function shuffleArray(arr) {
-      const copy = [...arr];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
-
-    // ----------------------------------------------------
-    // UI State Management & Render functions
-    // ----------------------------------------------------
-    
-    // Checkbox cards visuals and toggle sync
-    const checkCards = document.querySelectorAll('.checkbox-card');
-    checkCards.forEach(card => {
-      const checkbox = card.querySelector('input[type="checkbox"]');
-      card.addEventListener('click', (e) => {
-        // Prevent click trigger loop if clicking direct checkbox
-        if (e.target !== checkbox) {
-          checkbox.checked = !checkbox.checked;
-        }
-        if (checkbox.checked) {
-          card.classList.add('selected');
-        } else {
-          card.classList.remove('selected');
-        }
-        generateEmail();
-      });
-    });
-
-    // Form input listeners
-    document.getElementById('user-name').addEventListener('input', generateEmail);
-    document.getElementById('user-township').addEventListener('input', generateEmail);
-    document.getElementById('user-relationship').addEventListener('change', generateEmail);
-
-    // Dynamic recipients list rendering
-    function renderRecipients() {
-      const container = document.getElementById('board-members-list');
-      container.innerHTML = '';
-      
-      recipients.forEach(member => {
-        const div = document.createElement('div');
-        div.className = 'board-member-card';
-        
-        const area = member.area || member.township || "";
-        let roleText = member.role || "Board Member";
-        if (roleText === 'Member') {
-          roleText = 'Board Member';
-        }
-        
-        div.innerHTML = `
-          <div class="member-info">
-            <span class="member-name">${member.name}</span>
-            <span class="member-role">${roleText}</span>
-            <span class="member-township">${area}</span>
-          </div>
-          <a class="member-email" href="mailto:${member.email}" title="Email ${member.name} individually">${member.email}</a>
-        `;
-        container.appendChild(div);
-      });
-    }
-
-    // ----------------------------------------------------
-    // Main Email Generator Engine
-    // ----------------------------------------------------
-    function generateEmail() {
-      const nameVal = document.getElementById('user-name').value.trim();
-      const townshipVal = document.getElementById('user-township').value.trim();
-      const relationshipVal = document.getElementById('user-relationship').value;
-      
-      // 1. Generate Subject line
-      const prefix = getRandomElement(subjectPrefixes);
-      const school = getRandomElement(subjectSchools);
-      const suffix = getRandomElement(subjectSuffixes);
-      const subject = `${prefix} ${school}${suffix}`;
-      
-      // 2. Generate Body
-      const salutation = "Dear Gaston County School Board Members and Superintendent Houchard,";
-      const opener = getRandomElement(relationshipOpeners[relationshipVal]);
-      
-      // Select checked key arguments
-      const argKeys = ['financials', 'capacity', 'growth', 'educational'];
-      const activeKeys = argKeys.filter(key => document.getElementById(`arg-${key}`).checked);
-      
-      let selectedArgs = [];
-      if (activeKeys.length > 0) {
-        // Shuffle active keys and take at most 2 to keep email concise and unique
-        const shuffled = shuffleArray(activeKeys);
-        const keysToUse = shuffled.slice(0, 2);
-        keysToUse.forEach(key => {
-          selectedArgs.push(getRandomElement(argumentTemplates[key]));
-        });
-      } else {
-        // Fallback: if none are checked, pick one at random
-        const randomKey = getRandomElement(argKeys);
-        selectedArgs.push(getRandomElement(argumentTemplates[randomKey]));
-      }
-      
-      const bodyParagraphs = selectedArgs.join("\n\n");
-      const closing = getRandomElement(closings);
-      
-      // Generate signature
-      let signature = "";
-      if (nameVal) {
-        let details = [];
-        if (relationshipVal !== 'citizen') {
-          details.push(document.getElementById('user-relationship').options[document.getElementById('user-relationship').selectedIndex].text);
-        }
-        if (townshipVal) {
-          details.push(townshipVal);
-        }
-        const detailsStr = details.length > 0 ? `\n${details.join(', ')}` : '';
-        signature = `Respectfully,\n${nameVal}${detailsStr}`;
-      } else {
-        const defaultSignoff = getRandomElement(signoffs);
-        let details = [];
-        if (townshipVal) {
-          details.push(townshipVal);
-        }
-        const detailsStr = details.length > 0 ? ` from ${details.join(', ')}` : '';
-        signature = `${defaultSignoff}${detailsStr}`;
-      }
-      
-      const body = `${salutation}\n\n${opener}\n\n${bodyParagraphs}\n\n${closing}\n\n${signature}`;
-      
-      // Update UI preview elements
-      document.getElementById('preview-subject').value = subject;
-      document.getElementById('preview-body').value = body;
-      
-      // Sync mailto links and buttons
-      updateMailtoLink(subject, body);
-    }
-
-    // Update mailto URL builder
-    function updateMailtoLink(subject, body) {
-      const toEmails = recipients.map(r => r.email).join(',');
-      const mailtoUrl = `mailto:${toEmails}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-      const sendBtn = document.getElementById('send-btn');
-      sendBtn.href = mailtoUrl;
-    }
-
-    // Copy to clipboard utility
-    function copyToClipboard() {
-      const subject = document.getElementById('preview-subject').value;
-      const body = document.getElementById('preview-body').value;
-      const fullText = `Subject: ${subject}\n\n${body}`;
-      
-      const copyBtn = document.getElementById('copy-btn');
-      const copyBtnText = document.getElementById('copy-btn-text');
-      const copyIcon = document.getElementById('copy-icon');
-
-      navigator.clipboard.writeText(fullText).then(() => {
-        copyBtn.className = "btn btn-success";
-        copyBtnText.innerText = "Copied!";
-        copyIcon.innerHTML = `<path d="M20 6L9 17l-5-5" stroke-width="3"/>`; // Checkmark icon
-        
-        setTimeout(() => {
-          copyBtn.className = "btn btn-secondary";
-          copyBtnText.innerText = "Copy Text";
-          copyIcon.innerHTML = `<rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>`;
-        }, 2000);
-      }).catch(err => {
-        console.error('Failed to copy: ', err);
-      });
-    }
-
-    // Direct edit sync listeners to update the mailto: link as user types directly in the textboxes
-    document.getElementById('preview-subject').addEventListener('input', (e) => {
-      updateMailtoLink(e.target.value, document.getElementById('preview-body').value);
-    });
-    document.getElementById('preview-body').addEventListener('input', (e) => {
-      updateMailtoLink(document.getElementById('preview-subject').value, e.target.value);
-    });
-
-    // ----------------------------------------------------
-    // Initialization
-    // ----------------------------------------------------
-    async function loadData() {
-      try {
-        const response = await fetch('recepients.json');
-        if (response.ok) {
-          recipients = await response.json();
-        } else {
-          recipients = fallbackRecipients;
-        }
-      } catch (e) {
-        console.warn("Could not fetch recepients.json, using fallback data", e);
-        recipients = fallbackRecipients;
-      }
-      
-      renderRecipients();
-      generateEmail();
-    }
-
-    // Fire on load
-    window.addEventListener('DOMContentLoaded', loadData);
-  </script>
+  <script src="generator.js"></script>
 </body>
 </html>
