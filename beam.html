@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Advocacy Prompt</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #16a34a;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .description {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .action-bar {
+            position: sticky;
+            top: 0;
+            background: var(--bg-card);
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            z-index: 10;
+        }
+
+        .btn-copy {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.15s ease, transform 0.1s ease;
+        }
+
+        .btn-copy:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-copy:active {
+            transform: scale(0.98);
+        }
+
+        .btn-copy.success {
+            background-color: var(--success);
+        }
+
+        .prompt-box {
+            background-color: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            font-size: 1.05rem;
+        }
+
+        .prompt-box p {
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+        }
+
+        .prompt-box ul {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .prompt-box li {
+            margin-bottom: 1rem;
+        }
+
+        .prompt-box strong {
+            color: #0f172a;
+        }
+
+        /* Hidden textarea used strictly for copying clean raw markdown text formatting */
+        #raw-prompt-text {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>W.B. Beam Intermediate Advocacy Launcher</h1>
+    <p class="description">Click the button below to copy the fully formatted campaign prompt. Paste it directly into your Gemini session with Gmail extensions enabled to generate your targeted board emails.</p>
+
+    <div class="action-bar">
+        <button class="btn-copy" id="copy-btn" onclick="copyPrompt()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            <span id="btn-text">Copy Prompt to Clipboard</span>
+        </button>
+    </div>
+
+    <!-- Visual Display Area -->
+    <div class="prompt-box">
+        <p>Connect to Gmail and draft ten emails to the Gaston County Board of Education (one for each recepient below) urging them to vote against the closure of W.B. Beam Intermediate School.</p>
+
+        <p>Please generate a unique, persuasive email tailored to each of the board members and the Superintendent listed below. Keep each email professional, respectful, but deeply impassioned. Write from my perspective as a Cherryville resident, community advocate, and parent of two daughters whose educational futures are tied to the decisions made for this district.</p>
+
+        <p>Focus on the negative impact closing Beam Intermediate would have on the students, the faculty, and the broader Cherryville community, explicitly weaving in the following facts from the community feasibility study, titled <strong>"WB_Beam_Community_Feasibility_Study_CEA_City.pdf"</strong>:</p>
+
+        <ul>
+            <li><strong>Flawed Financials:</strong> The district's projected savings of $288,342 are vastly overstated. Community analysis estimates true net savings are actually closer to a meager $89,904 to $161,971. Funding for Title 1 supplies, shared teachers, and grant-funded SROs simply transfers with the students rather than resulting in actual savings for the county.</li>
+            <li><strong>Capacity & Overcrowding:</strong> Beam is not underutilized; it is operating at approximately 87% capacity. Closing it would immediately push Cherryville Elementary to 97% utilization at best.</li>
+            <li><strong>Future Growth:</strong> Cherryville is experiencing significant residential growth, with hundreds of new units in developments. Closing a school now is short-sighted and fails to account for imminent 3-to-10-year enrollment growth.</li>
+            <li><strong>Educational Impact:</strong> Reassigning 5th graders to John Chavis Middle School introduces developmental risks and eliminates critical upper-elementary identity programs, such as Battle of the Books, Math Masters, and Robotics.</li>
+        </ul>
+
+        <p>Additionally, bring up the concerning evelation recently gained from public records requests that --- according to the office of Todd Hagans --- Gaston County Schools does not maintain per-school spending budgets at all. Question how the district can responsibly or accurately vote to close a specific school without knowing its baseline operating budget.</p>
+
+        <p>Vary the arguments slightly for each member so the emails do not look like form letters, but ensure the core data is represented across the communications.</p>
+
+        <p><strong>Gaston County Board of Education Members:</strong></p>
+
+        <ul>
+            <li>Josh Crisp (joshcrisp@gaston.k12.nc.us) - Chairman, Dallas Township</li>
+            <li>Dot Cherry (dotcherry@gaston.k12.nc.us) - Vice Chairman, At-Large Member</li>
+            <li>Lee Dedmon (leededmon@gaston.k12.nc.us) - Gastonia Township</li>
+            <li>Tod Kinlaw (todkinlaw@gaston.k12.nc.us) - South Point Township</li>
+            <li>Robbie Lovelace (robbielovelace@gaston.k12.nc.us) - Cherryville Township</li>
+            <li>Brent Moore (brentmoore@gaston.k12.nc.us) - Crowders Mountain Township</li>
+            <li>Jeff Ramsey (jefframsey@gaston.k12.nc.us) - At-Large Member</li>
+            <li>Janna Smith (jannasmith@gaston.k12.nc.us) - Gastonia Township</li>
+            <li>A.M. Stephens III (amstephens@gaston.k12.nc.us) - Riverbend Township</li>
+            <li>Morgen A. Houchard (superintendent@gaston.k12.nc.us) - Superintendent</li>
+        </ul>
+
+        <p>Connect to Gmail and allow me to send them here, from the Gemini interface.</p>
+    </div>
+</div>
+
+<!-- Raw text representation so Markdown syntax transfers seamlessly to Gemini -->
+<textarea id="raw-prompt-text">Connect to Gmail and draft ten emails (one to each receipient below) to the Gaston County Board of Education urging them to vote against the closure of W.B. Beam Intermediate School.
+
+Please generate a unique, persuasive email tailored to each of the board members and the Superintendent listed below. Keep each email professional, respectful, but deeply impassioned. Write from my perspective as a Cherryville resident, community advocate, and parent of two daughters whose educational futures are tied to the decisions made for this district.
+
+Focus on the negative impact closing Beam Intermediate would have on the students, the faculty, and the broader Cherryville community, explicitly weaving in the following facts from the community feasibility study:
+
+* **Flawed Financials:** The district's projected savings of $288,342 are vastly overstated. Community analysis estimates true net savings are actually closer to a meager $89,904 to $161,971. Funding for Title 1 supplies, shared teachers, and grant-funded SROs simply transfers with the students rather than resulting in actual savings for the county.
+* **Capacity & Overcrowding:** Beam is not underutilized; it is operating at approximately 87% capacity. Closing it would immediately push Cherryville Elementary to 97% utilization at best.
+* **Future Growth:** Cherryville is experiencing significant residential growth, with hundreds of new units in developments. Closing a school now is short-sighted and fails to account for imminent 3-to-10-year enrollment growth.
+* **Educational Impact:** Reassigning 5th graders to John Chavis Middle School introduces developmental risks and eliminates critical upper-elementary identity programs, such as Battle of the Books, Math Masters, and Robotics.
+
+Additionally, bring up the concerning evelation recently gained from public records requests that --- according to the office of Todd Hagans --- Gaston County Schools does not maintain per-school spending budgets at all. Question how the district can responsibly or accurately vote to close a specific school without knowing its baseline operating budget.
+
+Vary the arguments slightly for each member so the emails do not look like form letters, but ensure the core data is represented across the communications.
+
+**Gaston County Board of Education Members:**
+
+* Josh Crisp (joshcrisp@gaston.k12.nc.us) - Chairman, Dallas Township
+* Dot Cherry (dotcherry@gaston.k12.nc.us) - Vice Chairman, At-Large Member
+* Lee Dedmon (leededmon@gaston.k12.nc.us) - Gastonia Township
+* Tod Kinlaw (todkinlaw@gaston.k12.nc.us) - South Point Township
+* Robbie Lovelace (robbielovelace@gaston.k12.nc.us) - Cherryville Township
+* Brent Moore (brentmoore@gaston.k12.nc.us) - Crowders Mountain Township
+* Jeff Ramsey (jefframsey@gaston.k12.nc.us) - At-Large Member
+* Janna Smith (jannasmith@gaston.k12.nc.us) - Gastonia Township
+* A.M. Stephens III (amstephens@gaston.k12.nc.us) - Riverbend Township
+* Morgen A. Houchard (superintendent@gaston.k12.nc.us) - Superintendent
+
+Connect to Gmail and allow me to send them here, from the Gemini interface.</textarea>
+
+<script>
+    function copyPrompt() {
+        const copyText = document.getElementById("raw-prompt-text");
+        const btn = document.getElementById("copy-btn");
+        const btnText = document.getElementById("btn-text");
+
+        // Copy process using standard Clipboard API
+        navigator.clipboard.writeText(copyText.value).then(() => {
+            // Update button visual state
+            btn.classList.add("success");
+            btnText.innerText = "Copied to Clipboard!";
+            
+            // Revert back to original state after 2 seconds
+            setTimeout(() => {
+                btn.classList.remove("success");
+                btnText.innerText = "Copy Prompt to Clipboard";
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+            // Fallback selection method if Clipboard API fails
+            copyText.select();
+            document.execCommand("copy");
+        });
+    }
+</script>
+
+</body>
+</html>
