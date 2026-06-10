@@ -209,9 +209,8 @@ function shuffleArray(arr) {
 // Wizard State & Config
 // ----------------------------------------------------
 const wizardState = {
-  currentStep: 0, // 0 = landing, 1 = primary, 2 = secondary, 3 = send
-  primaryConcern: null,
-  secondaryConcern: null
+  currentStep: 0, // 0 = landing, 1 = selection, 2 = send
+  selectedConcerns: []
 };
 
 const concernsList = [
@@ -231,13 +230,11 @@ function showStep(stepIndex) {
   const wizard = document.getElementById('wizard-container');
   const step1 = document.getElementById('wizard-step-1');
   const step2 = document.getElementById('wizard-step-2');
-  const step3 = document.getElementById('wizard-step-3');
 
   if (landing) landing.classList.add('d-none');
   if (wizard) wizard.classList.add('d-none');
   if (step1) step1.classList.add('d-none');
   if (step2) step2.classList.add('d-none');
-  if (step3) step3.classList.add('d-none');
   
   if (stepIndex === 0) {
     if (landing) landing.classList.remove('d-none');
@@ -247,7 +244,7 @@ function showStep(stepIndex) {
     if (stepEl) stepEl.classList.remove('d-none');
     
     // Update progress steps
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 2; i++) {
       const stepDot = document.querySelector(`.progress-step[data-step="${i}"]`);
       if (stepDot) {
         stepDot.classList.remove('active', 'completed');
@@ -270,68 +267,68 @@ function showStep(stepIndex) {
   }
 }
 
-function handlePrimarySelect(concernId) {
-  wizardState.primaryConcern = concernId;
-  setupSecondaryOptions();
-  showStep(2);
+function toggleConcern(concernId, cardElement) {
+  const index = wizardState.selectedConcerns.indexOf(concernId);
+  if (index > -1) {
+    // Already selected, deselect it
+    wizardState.selectedConcerns.splice(index, 1);
+    cardElement.classList.remove('flipped');
+  } else {
+    // Not selected
+    if (wizardState.selectedConcerns.length >= 2) {
+      return;
+    }
+    wizardState.selectedConcerns.push(concernId);
+    cardElement.classList.add('flipped');
+  }
+
+  // Update proceed button state
+  updateComposeButton();
+
+  // If two cards are flipped over, automatically transition to Step 2 after 600ms
+  if (wizardState.selectedConcerns.length === 2) {
+    setTimeout(() => {
+      // Re-verify that we still have exactly 2 concerns selected and are on step 1
+      if (wizardState.selectedConcerns.length === 2 && wizardState.currentStep === 1) {
+        generateEmail();
+        showStep(2);
+      }
+    }, 600);
+  }
 }
 
-function setupSecondaryOptions() {
-  const container = document.getElementById('secondary-concern-grid');
-  if (!container) return;
-  container.innerHTML = '';
+function updateComposeButton() {
+  const composeBtn = document.getElementById('btn-compose-wizard');
+  if (!composeBtn) return;
+
+  const count = wizardState.selectedConcerns.length;
+  if (count === 0) {
+    composeBtn.disabled = true;
+    composeBtn.innerText = "Select at least 1 concern";
+  } else if (count === 1) {
+    composeBtn.disabled = false;
+    composeBtn.innerText = "Compose Email with 1 concern";
+  } else {
+    composeBtn.disabled = false;
+    composeBtn.innerText = "Compose Email";
+  }
+}
+
+function resetWizardState() {
+  wizardState.selectedConcerns = [];
   
-  // Filter out selected primary concern
-  const remaining = concernsList.filter(c => c.id !== wizardState.primaryConcern);
-  
-  remaining.forEach(c => {
-    const btn = document.createElement('button');
-    btn.className = 'concern-option-card';
-    btn.setAttribute('data-concern', c.id);
-    btn.onclick = () => handleSecondarySelect(c.id);
-    
-    let iconSvg = '';
-    if (c.id === 'financials') {
-      iconSvg = '<svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>';
-    } else if (c.id === 'capacity') {
-      iconSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
-    } else if (c.id === 'growth') {
-      iconSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
-    } else if (c.id === 'educational') {
-      iconSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
-    }
-    
-    btn.innerHTML = `
-      <div class="concern-icon">${iconSvg}</div>
-      <div class="concern-info">
-        <span class="concern-title">${c.title}</span>
-        <span class="concern-desc">${c.desc}</span>
-      </div>
-    `;
-    container.appendChild(btn);
+  // Unflip all cards in the UI
+  const cards = document.querySelectorAll('#wizard-step-1 .card-flip-container');
+  cards.forEach(card => {
+    card.classList.remove('flipped');
   });
   
-  // Add Skip Option
-  const skipBtn = document.createElement('button');
-  skipBtn.className = 'concern-option-card';
-  skipBtn.style.borderColor = 'var(--border-subtle)';
-  skipBtn.onclick = () => handleSecondarySelect(null);
-  skipBtn.innerHTML = `
-    <div class="concern-icon" style="background: rgba(255,255,255,0.05); color: var(--text-secondary);">
-      <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    </div>
-    <div class="concern-info">
-      <span class="concern-title" style="color: var(--text-secondary);">No second concern</span>
-      <span class="concern-desc">Compose the email focusing only on your primary concern.</span>
-    </div>
-  `;
-  container.appendChild(skipBtn);
-}
-
-function handleSecondarySelect(concernId) {
-  wizardState.secondaryConcern = concernId;
-  generateEmail();
-  showStep(3);
+  // Reset input name
+  const nameInput = document.getElementById('user-name');
+  if (nameInput) nameInput.value = "";
+  
+  // Reset compose button
+  updateComposeButton();
 }
 
 function handleWriteOwnEmail() {
@@ -418,13 +415,7 @@ function generateEmail() {
   const opener = allOpeners.length > 0 ? getRandomElement(allOpeners) : "I am writing to express my concern regarding W.B. Beam Intermediate School.";
 
   // Retrieve argument paragraphs based on selections
-  const keysToUse = [];
-  if (wizardState.primaryConcern) {
-    keysToUse.push(wizardState.primaryConcern);
-  }
-  if (wizardState.secondaryConcern) {
-    keysToUse.push(wizardState.secondaryConcern);
-  }
+  let keysToUse = [...wizardState.selectedConcerns];
 
   // Fallback to random if empty (e.g. initial generation)
   if (keysToUse.length === 0) {
@@ -503,8 +494,7 @@ function setupListeners() {
   const startWizardBtn = document.getElementById('btn-start-wizard');
   if (startWizardBtn) {
     startWizardBtn.addEventListener('click', () => {
-      wizardState.primaryConcern = null;
-      wizardState.secondaryConcern = null;
+      resetWizardState();
       showStep(1);
     });
   }
@@ -531,20 +521,30 @@ function setupListeners() {
   const wizardResetBtn = document.getElementById('btn-wizard-reset');
   if (wizardResetBtn) {
     wizardResetBtn.addEventListener('click', () => {
+      resetWizardState();
       showStep(0);
     });
   }
   
-  // Primary concern option cards
-  const primaryCards = document.querySelectorAll('#wizard-step-1 .concern-option-card');
-  primaryCards.forEach(card => {
+  // Concern selection card-flip containers
+  const concernCards = document.querySelectorAll('#wizard-step-1 .card-flip-container');
+  concernCards.forEach(card => {
     card.addEventListener('click', () => {
       const concern = card.getAttribute('data-concern');
-      handlePrimarySelect(concern);
+      toggleConcern(concern, card);
     });
   });
 
-  // Name input listener in Step 3
+  // Compose Email wizard proceed button
+  const composeWizardBtn = document.getElementById('btn-compose-wizard');
+  if (composeWizardBtn) {
+    composeWizardBtn.addEventListener('click', () => {
+      generateEmail();
+      showStep(2);
+    });
+  }
+
+  // Name input listener
   const userNameInput = document.getElementById('user-name');
   if (userNameInput) {
     userNameInput.addEventListener('input', generateEmail);
