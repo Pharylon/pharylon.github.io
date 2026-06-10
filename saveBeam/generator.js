@@ -206,6 +206,147 @@ function shuffleArray(arr) {
 }
 
 // ----------------------------------------------------
+// Wizard State & Config
+// ----------------------------------------------------
+const wizardState = {
+  currentStep: 0, // 0 = landing, 1 = primary, 2 = secondary, 3 = send
+  primaryConcern: null,
+  secondaryConcern: null
+};
+
+const concernsList = [
+  { id: 'financials', title: "It doesn't make financial sense", desc: "Focus on suspicious savings claims, SRO grants, and lack of school baseline budgets." },
+  { id: 'capacity', title: "School overcrowding", desc: "Focus on Beam operating at 87% utilization and overloading Cherryville Elementary to 97%." },
+  { id: 'growth', title: "Cherryville is growing", desc: "Focus on new residential construction and rising enrollment projections over the next decade." },
+  { id: 'educational', title: "It will hurt our education", desc: "Focus on middle school developmental risks and losing robotics, mathematics, and reading programs." }
+];
+
+// ----------------------------------------------------
+// Wizard Navigation & Handlers
+// ----------------------------------------------------
+function showStep(stepIndex) {
+  wizardState.currentStep = stepIndex;
+  
+  const landing = document.getElementById('landing-container');
+  const wizard = document.getElementById('wizard-container');
+  const step1 = document.getElementById('wizard-step-1');
+  const step2 = document.getElementById('wizard-step-2');
+  const step3 = document.getElementById('wizard-step-3');
+
+  if (landing) landing.classList.add('d-none');
+  if (wizard) wizard.classList.add('d-none');
+  if (step1) step1.classList.add('d-none');
+  if (step2) step2.classList.add('d-none');
+  if (step3) step3.classList.add('d-none');
+  
+  if (stepIndex === 0) {
+    if (landing) landing.classList.remove('d-none');
+  } else {
+    if (wizard) wizard.classList.remove('d-none');
+    const stepEl = document.getElementById(`wizard-step-${stepIndex}`);
+    if (stepEl) stepEl.classList.remove('d-none');
+    
+    // Update progress steps
+    for (let i = 1; i <= 3; i++) {
+      const stepDot = document.querySelector(`.progress-step[data-step="${i}"]`);
+      if (stepDot) {
+        stepDot.classList.remove('active', 'completed');
+        if (i < stepIndex) {
+          stepDot.classList.add('completed');
+        } else if (i === stepIndex) {
+          stepDot.classList.add('active');
+        }
+      }
+      
+      // Update progress lines
+      const nextLine = stepDot ? stepDot.nextElementSibling : null;
+      if (nextLine && nextLine.classList.contains('progress-line')) {
+        nextLine.classList.remove('completed');
+        if (i < stepIndex) {
+          nextLine.classList.add('completed');
+        }
+      }
+    }
+  }
+}
+
+function handlePrimarySelect(concernId) {
+  wizardState.primaryConcern = concernId;
+  setupSecondaryOptions();
+  showStep(2);
+}
+
+function setupSecondaryOptions() {
+  const container = document.getElementById('secondary-concern-grid');
+  if (!container) return;
+  container.innerHTML = '';
+  
+  // Filter out selected primary concern
+  const remaining = concernsList.filter(c => c.id !== wizardState.primaryConcern);
+  
+  remaining.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'concern-option-card';
+    btn.setAttribute('data-concern', c.id);
+    btn.onclick = () => handleSecondarySelect(c.id);
+    
+    let iconSvg = '';
+    if (c.id === 'financials') {
+      iconSvg = '<svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>';
+    } else if (c.id === 'capacity') {
+      iconSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+    } else if (c.id === 'growth') {
+      iconSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
+    } else if (c.id === 'educational') {
+      iconSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
+    }
+    
+    btn.innerHTML = `
+      <div class="concern-icon">${iconSvg}</div>
+      <div class="concern-info">
+        <span class="concern-title">${c.title}</span>
+        <span class="concern-desc">${c.desc}</span>
+      </div>
+    `;
+    container.appendChild(btn);
+  });
+  
+  // Add Skip Option
+  const skipBtn = document.createElement('button');
+  skipBtn.className = 'concern-option-card';
+  skipBtn.style.borderColor = 'var(--border-subtle)';
+  skipBtn.onclick = () => handleSecondarySelect(null);
+  skipBtn.innerHTML = `
+    <div class="concern-icon" style="background: rgba(255,255,255,0.05); color: var(--text-secondary);">
+      <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="concern-info">
+      <span class="concern-title" style="color: var(--text-secondary);">No second concern</span>
+      <span class="concern-desc">Compose the email focusing only on your primary concern.</span>
+    </div>
+  `;
+  container.appendChild(skipBtn);
+}
+
+function handleSecondarySelect(concernId) {
+  wizardState.secondaryConcern = concernId;
+  generateEmail();
+  showStep(3);
+}
+
+function handleWriteOwnEmail() {
+  const prefix = getRandomElement(templates.subjectPrefixes);
+  const school = getRandomElement(templates.subjectSchools);
+  const suffix = getRandomElement(templates.subjectSuffixes);
+  const subject = `${prefix} ${school}${suffix}`;
+  
+  const toEmails = recipients.map(r => r.email).join(',');
+  const mailtoUrl = `mailto:${toEmails}?subject=${encodeURIComponent(subject)}&body=&bcc=zshuford@gmail.com`;
+  
+  window.location.href = mailtoUrl;
+}
+
+// ----------------------------------------------------
 // Dynamic Recipient Rendering
 // ----------------------------------------------------
 function renderRecipients() {
@@ -276,13 +417,22 @@ function generateEmail() {
   // Fallback check if opener list is empty
   const opener = allOpeners.length > 0 ? getRandomElement(allOpeners) : "I am writing to express my concern regarding W.B. Beam Intermediate School.";
 
-  // Select exactly 3 random key arguments dynamically behind the scenes
-  const argKeys = ['financials', 'capacity', 'growth', 'educational'];
-  const shuffledKeys = shuffleArray(argKeys);
-  const keysToUse = shuffledKeys.slice(0, 3);
+  // Retrieve argument paragraphs based on selections
+  const keysToUse = [];
+  if (wizardState.primaryConcern) {
+    keysToUse.push(wizardState.primaryConcern);
+  }
+  if (wizardState.secondaryConcern) {
+    keysToUse.push(wizardState.secondaryConcern);
+  }
+
+  // Fallback to random if empty (e.g. initial generation)
+  if (keysToUse.length === 0) {
+    const argKeys = ['financials', 'capacity', 'growth', 'educational'];
+    keysToUse.push(getRandomElement(argKeys));
+  }
 
   const selectedArgs = keysToUse.map(key => getArgumentParagraph(key)).filter(para => para !== "");
-
   const bodyParagraphs = selectedArgs.join("\n\n");
   const closing = getRandomElement(templates.closings);
 
@@ -349,6 +499,52 @@ function copyToClipboard() {
 
 // Setup Event Listeners and Initializers
 function setupListeners() {
+  // Start wizard button
+  const startWizardBtn = document.getElementById('btn-start-wizard');
+  if (startWizardBtn) {
+    startWizardBtn.addEventListener('click', () => {
+      wizardState.primaryConcern = null;
+      wizardState.secondaryConcern = null;
+      showStep(1);
+    });
+  }
+  
+  // Write own email button
+  const writeOwnBtn = document.getElementById('btn-write-own');
+  if (writeOwnBtn) {
+    writeOwnBtn.addEventListener('click', handleWriteOwnEmail);
+  }
+  
+  // Back button in wizard header
+  const wizardBackBtn = document.getElementById('btn-wizard-back');
+  if (wizardBackBtn) {
+    wizardBackBtn.addEventListener('click', () => {
+      if (wizardState.currentStep > 1) {
+        showStep(wizardState.currentStep - 1);
+      } else {
+        showStep(0); // Go back to landing
+      }
+    });
+  }
+  
+  // Start Over button in wizard header
+  const wizardResetBtn = document.getElementById('btn-wizard-reset');
+  if (wizardResetBtn) {
+    wizardResetBtn.addEventListener('click', () => {
+      showStep(0);
+    });
+  }
+  
+  // Primary concern option cards
+  const primaryCards = document.querySelectorAll('#wizard-step-1 .concern-option-card');
+  primaryCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const concern = card.getAttribute('data-concern');
+      handlePrimarySelect(concern);
+    });
+  });
+
+  // Name input listener in Step 3
   const userNameInput = document.getElementById('user-name');
   if (userNameInput) {
     userNameInput.addEventListener('input', generateEmail);
@@ -404,6 +600,7 @@ async function loadData() {
   renderRecipients();
   setupListeners();
   generateEmail();
+  showStep(0); // Initialize on landing view
 }
 
 // Fire on DOMContentLoaded
